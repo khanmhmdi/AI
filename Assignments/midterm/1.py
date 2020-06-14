@@ -56,7 +56,10 @@ def candidate_generator(x, y, m, n, pacman_locations):
         candidate_locations.append((int(x), int(y)))
     
     if not candidate_locations:
-        candidate_locations = pacman_locations.copy()
+        for i in range(m):
+            for j in range(n):
+                if game_map[i][j] != 2:
+                    candidate_locations.append((i, j))
     return candidate_locations
 
 def bfs(pacman_locations, game_map, destinations):
@@ -64,8 +67,8 @@ def bfs(pacman_locations, game_map, destinations):
     for destination in destinations:
         distances = []
         for pacman_location in pacman_locations:
-#            print('destination:', destination)
-#            print('pacman_location', pacman_location)
+            print('destination:', destination)
+            print('pacman_location', pacman_location)
             x, y = pacman_location
             fringe = [(x, y)]
             seen_before = fringe.copy()
@@ -73,8 +76,8 @@ def bfs(pacman_locations, game_map, destinations):
             distance = 0
             counter = 1
             if destination == pacman_location:
-#                print('distance', 0)
-#                print('-------------')
+                print('distance', 0)
+                print('-------------')
                 distances.append(0)
 
             else:
@@ -89,8 +92,8 @@ def bfs(pacman_locations, game_map, destinations):
                                 seen_before.append((x + 1, y))
                                 if (x + 1, y) == destination:
                                     distances.append(distance + 1)
-#                                    print('distance', distance + 1)
-#                                    print('-------------')
+                                    print('distance', distance + 1)
+                                    print('-------------')
                                     break
 
                     if x - 1 > -1:
@@ -100,8 +103,8 @@ def bfs(pacman_locations, game_map, destinations):
                                 seen_before.append((x - 1, y))
                                 if (x - 1, y) == destination:
                                     distances.append(distance + 1)
-#                                    print('distance', distance + 1)
-#                                    print('-------------')
+                                    print('distance', distance + 1)
+                                    print('-------------')
                                     break
 
 
@@ -112,8 +115,8 @@ def bfs(pacman_locations, game_map, destinations):
                                 seen_before.append((x, y + 1))
                                 if (x, y + 1) == destination:
                                     distances.append(distance + 1)
-#                                    print('distance', distance + 1)
-#                                    print('-------------')
+                                    print('distance', distance + 1)
+                                    print('-------------')
                                     break
 
                     if y - 1 > -1:
@@ -123,8 +126,8 @@ def bfs(pacman_locations, game_map, destinations):
                                 seen_before.append((x, y - 1))
                                 if (x, y - 1) == destination:
                                     distances.append(distance + 1)
-#                                   print('distance', distance + 1)
-#                                    print('-------------')
+                                    print('distance', distance + 1)
+                                    print('-------------')
                                     break
 
                     if counter == 0:
@@ -158,7 +161,7 @@ x_sum, y_sum = 0, 0
 
 if k:
     if k == 1:
-        print('minimum distance: ', 0)
+        print(0)
     else:   
         for i in range(k):
             x, y = pacman_locations[i]
@@ -173,7 +176,7 @@ if k:
         x, y = integration_point['x'], integration_point['y']
         candidate_locations = candidate_generator(y, x, m, n, pacman_locations.copy())
         minimum_distance = bfs(pacman_locations, game_map, candidate_locations)
-        print('minimum distance:', minimum_distance)
+        print('minimum_distance:', minimum_distance)
 
 else:
     print('No pacman found!')

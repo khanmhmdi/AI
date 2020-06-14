@@ -1,27 +1,27 @@
 from random import randint as rnd
 
-# m = int(input())
-# b = int(input())
-# c = int(input())
+m = int(input())
+b = int(input())
+c = int(input())
 
-m, b, c = 6, 4, 2
+# m, b, c = 6, 4, 2
 
-# offers = list()
-offers = [[0, 3000.0, [0, 1, 4]],
- [0, 2000.0, [0, 1, 5]],
- [1, 1000.5, [2, 3]],
- [1, 1525.75, [0, 1, 2, 3, 4, 5]]]
+offers = list()
+# offers = [[0, 3000.0, [0, 1, 4]],
+#  [0, 2000.0, [0, 1, 5]],
+#  [1, 1000.5, [2, 3]],
+#  [1, 1525.75, [0, 1, 2, 3, 4, 5]]]
 
 local_maximum = 0
 results = [0] * b
 state = [0 for i in range(0, b)]
 
-# for _ in range(b):
-#     offer_details = list(map(float, input()[: -1].split()))
-#     protocol_name = int(offer_details[0])
-#     price = offer_details[1]
-#     regions = list(map(int, offer_details[2:]))
-#     offers.append([protocol_name, price, regions])
+for _ in range(b):
+    offer_details = list(map(float, input()[: -1].split()))
+    protocol_name = int(offer_details[0])
+    price = offer_details[1]
+    regions = list(map(int, offer_details[2:]))
+    offers.append([protocol_name, price, regions])
 
 def get_state_value(state):
     summation, accepted_regions = 0, [0] * m
@@ -52,7 +52,7 @@ def get_random_neighbor(state):
 def local_search(state):
     global results, local_maximum
 
-    for i in range(10):
+    for i in range(15):
         get_random_neighbor(state)
 
         if get_state_value(state) > local_maximum:
@@ -64,7 +64,7 @@ def local_search(state):
 
 
 local_search(state)
-for i in range(500):
+for i in range(3000):
     state = results[:]
     local_search(state)
 
